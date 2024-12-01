@@ -28,7 +28,7 @@
 
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
-	private async Task ExportToExcel() => await _grid.DownloadExcel(JSRuntime, "export.xlsx");
+	private async Task ExportToExcel() => await _grid.ExportDataGrid(JSRuntime, "export.xlsx");
 
 	protected override void OnInitialized()
 	{

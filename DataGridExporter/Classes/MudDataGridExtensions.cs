@@ -3,10 +3,10 @@ using MudBlazor;
 
 public static class MudDataGridExtensions
 {
-	public static async Task DownloadExcel<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	public static async Task ExportDataGrid<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
 	{
-		ExcelWriter excelWriter = new ExcelWriter();
-		byte[] content = excelWriter.GenerateExcel(grid.RenderedColumns, grid.FilteredItems);
+		CellWriter spreadsheetlWriter = new CellWriter();
+		byte[] content = spreadsheetlWriter.GenerateSpreadsheet(grid.RenderedColumns, grid.FilteredItems);
 
 		await JSRuntimeExtensions.InvokeAsync<object>(js, "saveAsFile", new object[2]
 		{
