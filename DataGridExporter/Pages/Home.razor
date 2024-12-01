@@ -1,7 +1,8 @@
 ﻿@page "/"
 @inject IJSRuntime JSRuntime
 
-<MudDataGrid Class="ma-3"
+<MudDataGrid @ref="_grid"
+			 Class="ma-3"
 			 Dense="true"
 			 Elevation="4"
 			 FixedHeader="true"
@@ -33,14 +34,29 @@
 	protected override void OnInitialized()
 	{
 		for (var i = 0; i < 100; i++)
-			_items.Add(new Row($"Value_{i}", $"Value_{i}", $"Value_{i}", $"Value_{i}", $"Value_{i}"));
+			_items.Add(new Row($"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}"));
 	}
 
 	private async Task ExportToExcel()
 	{
-		if (_grid != null)
+		try
 		{
-			await _grid.DownloadExcel(JSRuntime, "export.xlsx");
+			if (_grid != null)
+			{
+				Console.WriteLine($"Columns count: {_grid.RenderedColumns?.Count}");
+				Console.WriteLine($"Items count: {_grid.FilteredItems?.Count()}");
+
+				await _grid.DownloadExcel(JSRuntime, "export.xlsx");
+			}
+			else
+			{
+				Console.WriteLine("Grid is null");
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Export failed: {ex.Message}");
+			Console.WriteLine($"Stack Trace: {ex.StackTrace}");
 		}
 	}
 }
