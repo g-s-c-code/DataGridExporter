@@ -1,0 +1,41 @@
+﻿@inject IJSRuntime JSRuntime
+
+<MudDataGrid @ref="_grid"
+			 Class="ma-3"
+			 Dense="true"
+			 Elevation="4"
+			 FixedHeader="true"
+			 Height="350px"
+			 Items="@_items"
+			 Outlined="true"
+			 Striped="true"
+			 T="Row">
+	<ToolBarContent>
+		<MudIconButton Icon="@Icons.Material.Filled.FileDownload"
+					   OnClick="ExportToExcel" />
+	</ToolBarContent>
+	<Columns>
+		<PropertyColumn Property="x => x.column_1" />
+		<PropertyColumn Property="x => x.column_2" />
+		<PropertyColumn Property="x => x.column_3" />
+		<PropertyColumn Property="x => x.column_4" />
+		<PropertyColumn Property="x => x.column_5" />
+	</Columns>
+</MudDataGrid>
+
+@code {
+	public record Row(string column_1, string column_2, string column_3, string column_4, string column_5);
+
+	private MudDataGrid<Row> _grid = default!;
+	private List<Row> _items = new List<Row>();
+	private async Task ExportToExcel() => await _grid.DownloadExcel(JSRuntime, "export.xlsx");
+
+	protected override void OnInitialized()
+	{
+		for (var i = 0; i < 100; i++)
+		{
+			_items.Add(new Row($"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}"));
+		}
+	}
+
+}
