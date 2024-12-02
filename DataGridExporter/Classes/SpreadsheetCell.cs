@@ -31,24 +31,14 @@ namespace MudBlazor
 		}
 	}
 
-	public class CellData
+	public class CellData(bool extendedSheet)
 	{
-		public CellStatus Status { get; set; }
-		public Columns ColumnConfigurations { get; set; }
-		public List<List<Cell>> Cells { get; set; }
-		public string SheetName { get; set; }
-		public bool ExtendedSheet { get; set; }
-
-		public CellData() : this(false)
-		{ }
-
-		// extended sheet allows merged cells and enforce column and row index use
-		public CellData(bool extendedSheet)
-		{
-			Status = new CellStatus();
-			Cells = new List<List<Cell>>();
-			ExtendedSheet = extendedSheet;
-		}
+		public CellData() : this(false) { }
+		public CellStatus Status { get; set; } = new CellStatus();
+		public Columns? ColumnConfigurations { get; set; }
+		public List<List<Cell>> Cells { get; set; } = new List<List<Cell>>();
+		public string? SheetName { get; set; }
+		public bool ExtendedSheet { get; set; } = extendedSheet;
 	}
 
 	public class CellWriter
@@ -71,9 +61,8 @@ namespace MudBlazor
 		private DocumentFormat.OpenXml.Spreadsheet.Cell CreateCell(string header, UInt32 index, string text)
 		{
 			DocumentFormat.OpenXml.Spreadsheet.Cell cell;
-			double number;
 
-			if (double.TryParse(text, out number))
+			if (double.TryParse(text, out double number))
 			{
 				cell = new DocumentFormat.OpenXml.Spreadsheet.Cell
 				{
@@ -99,23 +88,24 @@ namespace MudBlazor
 			return cell;
 		}
 
-		private MergeCell CreateMergeCell(Cell excelCell)
+		private MergeCell CreateMergeCell(Cell cell)
 		{
 			MergeCell mergeCell = new MergeCell
 			{
-				Reference = new StringValue(ColumnLetter(excelCell.ColumnIndex)
-						+ (excelCell.RowIndex + 1) + ":"
-						+ ColumnLetter(excelCell.ColumnIndex + excelCell.ColSpan - 1) +
-						+(excelCell.RowIndex + excelCell.RowSpan)),
+				Reference = new StringValue(ColumnLetter(cell.ColumnIndex)
+						+ (cell.RowIndex + 1) + ":"
+						+ ColumnLetter(cell.ColumnIndex + cell.ColSpan - 1) +
+						+(cell.RowIndex + cell.RowSpan)),
 			};
 			return mergeCell;
 		}
 
 		public byte[] GenerateSpreadsheet<T>(List<Column<T>> columns, IEnumerable<T> items)
 		{
-			CellData excelData = new CellData();
-			excelData.SheetName = "Items";
+			CellData cellData = new CellData();
+			cellData.SheetName = "Items";
 			var header = new List<Cell>();
+
 			foreach (var column in columns)
 			{
 				if (!column.Hidden && !string.IsNullOrEmpty(column.PropertyName))
@@ -123,27 +113,30 @@ namespace MudBlazor
 					header.Add(new Cell(column.Title));
 				}
 			}
-			excelData.Cells.Add(header);
+			cellData.Cells.Add(header);
 
-			foreach (var item in items)
+			if (items != null)
 			{
-				Type t = item.GetType();
-				List<Cell> row = new List<Cell>();
-				foreach (var column in columns)
+				foreach (var item in items)
 				{
-					if (!column.Hidden)
+					Type t = item!.GetType();
+					List<Cell> row = new List<Cell>();
+					foreach (var column in columns)
 					{
-						if (!string.IsNullOrEmpty(column.PropertyName))
+						if (!column.Hidden)
 						{
-							PropertyInfo prop = t.GetProperty(column.PropertyName);
-							object val = prop.GetValue(item);
-							row.Add(new Cell(val != null ? val.ToString() : string.Empty));
+							if (!string.IsNullOrEmpty(column.PropertyName))
+							{
+								PropertyInfo prop = t.GetProperty(column.PropertyName)!;
+								object val = prop.GetValue(item) ?? new string("N/A");
+								row.Add(new Cell(val.ToString()!));
+							}
 						}
 					}
+					cellData.Cells.Add(row);
 				}
-				excelData.Cells.Add(row);
 			}
-			return GenerateSpreadsheet(excelData);
+			return GenerateSpreadsheet(cellData);
 		}
 
 		public byte[] GenerateSpreadsheet(CellData data)
@@ -159,13 +152,13 @@ namespace MudBlazor
 			worksheetPart.Worksheet = new Worksheet(sheetData);
 
 			var sheets = document.WorkbookPart.Workbook.
-				AppendChild<Sheets>(new Sheets());
+				AppendChild(new Sheets());
 
 			var sheet = new Sheet()
 			{
 				Id = document.WorkbookPart.GetIdOfPart(worksheetPart),
 				SheetId = 1,
-				Name = data.SheetName ?? "Sheet 1"
+				Name = data.SheetName ?? "sheet_1"
 			};
 			sheets.AppendChild(sheet);
 
@@ -183,14 +176,13 @@ namespace MudBlazor
 		private void AppendDataToSheet(SheetData sheetData, CellData data)
 		{
 			UInt32 rowIdex = 0;
-			DocumentFormat.OpenXml.Spreadsheet.Row row;
-			var cellIdex = 0;
+			Row row;
 
 			// Add sheet data
 			foreach (var rowData in data.Cells)
 			{
-				cellIdex = 0;
-				row = new DocumentFormat.OpenXml.Spreadsheet.Row { RowIndex = ++rowIdex };
+				int cellIdex = 0;
+				row = new Row { RowIndex = ++rowIdex };
 				sheetData.AppendChild(row);
 				foreach (var cellData in rowData)
 				{
@@ -202,25 +194,25 @@ namespace MudBlazor
 		}
 
 		private void AppendDataToExtendedSheet(Worksheet worksheet, SheetData sheetData,
-			CellData data)
+			CellData cellData)
 		{
 			UInt32 rowIdex = 0;
 			Row row;
 			MergeCells mergeCells = new MergeCells();
 
 			// Add sheet data
-			foreach (var rowData in data.Cells)
+			foreach (var rowData in cellData.Cells)
 			{
 				row = new Row { RowIndex = ++rowIdex };
 				sheetData.AppendChild(row);
-				foreach (var excelCell in rowData)
+				foreach (var data in rowData)
 				{
-					var cell = CreateCell(ColumnLetter(excelCell.ColumnIndex),
-						(uint)(excelCell.RowIndex + 1), excelCell.Content ?? string.Empty);
+					var cell = CreateCell(ColumnLetter(data.ColumnIndex),
+						(uint)(data.RowIndex + 1), data.Content ?? string.Empty);
 					row.AppendChild(cell);
-					if (excelCell.ColSpan > 1 || excelCell.RowSpan > 1)
+					if (data.ColSpan > 1 || data.RowSpan > 1)
 					{
-						var mergeCell = CreateMergeCell(excelCell);
+						var mergeCell = CreateMergeCell(data);
 						mergeCells.Append(mergeCell);
 					}
 				}
