@@ -12,6 +12,11 @@ html, body {
     width: 100%;
 }
 
+.data-grid-subheader {
+    background-color: seagreen;
+    font-weight: bold;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
