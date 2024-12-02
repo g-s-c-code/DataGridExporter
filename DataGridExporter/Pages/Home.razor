@@ -4,7 +4,7 @@
 <MudCard Square="true">
 	<MudCardHeader Class="header">
 		<h1>DataGrid Exporter</h1>
-		<MudButton Color="Color.Success"
+		<MudButton Color="Color.Info"
 				   EndIcon="@Icons.Material.Filled.FileDownload"
 				   IconSize="Size.Large"
 				   OnClick="ExportToExcel"
@@ -17,19 +17,19 @@
 	<MudCardContent>
 		<MudDataGrid @ref="_grid"
 					 Bordered=true
+					 Class="thick-outline"
 					 Dense="true"
 					 FixedHeader="true"
-					 HeaderClass="data-grid-header"
 					 Height="333px"
 					 Items="@_items"
 					 Outlined="true"
 					 T="Row">
 			<Columns>
-				<PropertyColumn Property="x => x.column_1" Title="Column 1" />
-				<PropertyColumn Property="x => x.column_2" Title="Column 2" />
-				<PropertyColumn Property="x => x.column_3" Title="Column 3" />
-				<PropertyColumn Property="x => x.column_4" Title="Column 4" />
-				<PropertyColumn Property="x => x.column_5" Title="Column 5" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 1" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 2" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 3" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 4" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 5" HeaderStyle="font-weight: bold;" />
 			</Columns>
 		</MudDataGrid>
 	</MudCardContent>

@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    letter-spacing: 1px;
 }
 
 .header {
@@ -12,9 +13,8 @@ html, body {
     width: 100%;
 }
 
-.data-grid-header {
-    background-color: seagreen !important;
-    font-weight: bold !important;
+.thick-outline {
+    border: 3px solid cornflowerblue !important;
 }
 
 #blazor-error-ui {
