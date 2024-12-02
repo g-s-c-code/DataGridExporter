@@ -1,4 +1,58 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
 
-<h1>DataGrid Exporter</h1>
-<DataGrid />
+<MudCard Square="true">
+	<MudCardHeader Class="header">
+		<h1>
+			DataGrid Exporter
+		</h1>
+		<MudButton Color="Color.Warning"
+				   EndIcon="@Icons.Material.Filled.FileDownload"
+				   IconSize="Size.Large"
+				   OnClick="ExportToExcel"
+				   Ripple="true"
+				   Size="Size.Large">
+			Download Data
+		</MudButton>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudDataGrid @ref="_grid"
+					 Bordered=true
+					 Class=""
+					 Dense="true"
+					 Elevation="4"
+					 FixedFooter="true"
+					 FixedHeader="true"
+					 FooterClass="data-grid-footer"
+					 HeaderClass="data-grid-header"
+					 Height="321px"
+					 Items="@_items"
+					 Outlined="true"
+					 T="Row">
+			<Columns>
+				<PropertyColumn Property="x => x.column_1" />
+				<PropertyColumn Property="x => x.column_2" />
+				<PropertyColumn Property="x => x.column_3" />
+				<PropertyColumn Property="x => x.column_4" />
+				<PropertyColumn Property="x => x.column_5" />
+			</Columns>
+		</MudDataGrid>
+	</MudCardContent>
+</MudCard>
+
+@code {
+	public record Row(string column_1, string column_2, string column_3, string column_4, string column_5);
+
+	private MudDataGrid<Row> _grid = default!;
+	private List<Row> _items = new List<Row>();
+	private async Task ExportToExcel() => await _grid.ExportDataGrid(JSRuntime, "export.xlsx");
+
+	protected override void OnInitialized()
+	{
+		for (var i = 0; i < 100; i++)
+		{
+			_items.Add(new Row($"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}"));
+		}
+	}
+
+}

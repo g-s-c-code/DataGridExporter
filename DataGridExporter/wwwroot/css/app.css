@@ -4,6 +4,14 @@ html, body {
     padding: 0;
 }
 
+.header {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    width: 100%;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

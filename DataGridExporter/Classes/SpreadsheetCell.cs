@@ -6,20 +6,13 @@ using System.Reflection;
 
 namespace MudBlazor
 {
-	public class Cell
+	public class Cell(string content)
 	{
-		public string Content { get; set; }
+		public string Content { get; set; } = content;
 		public int ColumnIndex { get; set; }
 		public int RowIndex { get; set; }
-		public int ColSpan { get; set; }
-		public int RowSpan { get; set; }
-
-		public Cell(string content)
-		{
-			Content = content;
-			ColSpan = 1;
-			RowSpan = 1;
-		}
+		public int ColSpan { get; set; } = 1;
+		public int RowSpan { get; set; } = 1;
 	}
 
 	public class CellStatus
