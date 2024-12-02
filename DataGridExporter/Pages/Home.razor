@@ -11,36 +11,32 @@
 				   Ripple="true"
 				   Style="font-weight: bold;"
 				   Variant="Variant.Filled">
-			Download
+			Download Data
 		</MudButton>
 	</MudCardHeader>
 	<MudCardContent>
 		<MudDataGrid @ref="_grid"
 					 Bordered=true
-					 Class=""
 					 Dense="true"
-					 Elevation="4"
-					 FixedFooter="true"
 					 FixedHeader="true"
-					 FooterClass="data-grid-footer"
 					 HeaderClass="data-grid-header"
-					 Height="321px"
+					 Height="334px"
 					 Items="@_items"
 					 Outlined="true"
 					 T="Row">
 			<Columns>
-				<PropertyColumn Property="x => x.column_1" />
-				<PropertyColumn Property="x => x.column_2" />
-				<PropertyColumn Property="x => x.column_3" />
-				<PropertyColumn Property="x => x.column_4" />
-				<PropertyColumn Property="x => x.column_5" />
+				<PropertyColumn Property="x => x.column_1" Title="Column 1" />
+				<PropertyColumn Property="x => x.column_2" Title="Column 2" />
+				<PropertyColumn Property="x => x.column_3" Title="Column 3" />
+				<PropertyColumn Property="x => x.column_4" Title="Column 4" />
+				<PropertyColumn Property="x => x.column_5" Title="Column 5" />
 			</Columns>
 		</MudDataGrid>
 	</MudCardContent>
 </MudCard>
 
 @code {
-	public record Row(string column_1, string column_2, string column_3, string column_4, string column_5);
+	public record Row(int column_1, int column_2, int column_3, int column_4, int column_5);
 
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
@@ -50,7 +46,7 @@
 	{
 		for (var i = 0; i < 100; i++)
 		{
-			_items.Add(new Row($"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}", $"value_{i}"));
+			_items.Add(new Row(i, i, i, i, i));
 		}
 	}
 
