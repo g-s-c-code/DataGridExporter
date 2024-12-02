@@ -5,18 +5,6 @@ html, body {
     letter-spacing: 1px;
 }
 
-.header {
-    align-items: center;
-    display: flex;
-    font-weight: bold;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.thick-outline {
-    border: 3px solid cornflowerblue !important;
-}
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

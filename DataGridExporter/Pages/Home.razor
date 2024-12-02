@@ -1,33 +1,45 @@
 ﻿@page "/"
 @inject IJSRuntime JSRuntime
 
-<h1>DataGrid Exporter</h1>
-<MudButton Color="Color.Info"
-		   EndIcon="@Icons.Material.Filled.FileDownload"
-		   IconSize="Size.Large"
-		   OnClick="ExportToExcel"
-		   Ripple="true"
-		   Style="font-weight: bold;"
-		   Variant="Variant.Filled">
-	Download Data
-</MudButton>
-<MudDataGrid @ref="_grid"
-			 Bordered=true
-			 Class="thick-outline"
-			 Dense="true"
-			 FixedHeader="true"
-			 Height="333px"
-			 Items="@_items"
-			 Outlined="true"
-			 T="Row">
-	<Columns>
-		<PropertyColumn Property="x => x.column_1" Title="COLUMN 1" HeaderStyle="font-weight: bold;" />
-		<PropertyColumn Property="x => x.column_1" Title="COLUMN 2" HeaderStyle="font-weight: bold;" />
-		<PropertyColumn Property="x => x.column_1" Title="COLUMN 3" HeaderStyle="font-weight: bold;" />
-		<PropertyColumn Property="x => x.column_1" Title="COLUMN 4" HeaderStyle="font-weight: bold;" />
-		<PropertyColumn Property="x => x.column_1" Title="COLUMN 5" HeaderStyle="font-weight: bold;" />
-	</Columns>
-</MudDataGrid>
+<MudCard Square="true">
+	<MudCardHeader Class="d-flex align-center justify-space-between">
+		<MudText Typo="Typo.h4" Color="Color.Primary">
+			DataGrid Exporter
+		</MudText>
+		<MudButton Color="Color.Primary"
+				   EndIcon="@Icons.Material.Outlined.FileDownload"
+				   IconSize="Size.Large"
+				   OnClick="ExportToExcel"
+				   Ripple="true"
+				   Size="Size.Large"
+				   Style="font-weight: bold;"
+				   Variant="Variant.Filled">
+			Download Data
+		</MudButton>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudDataGrid @ref="_grid"
+					 Bordered=true
+					 Class="border-double border-4 mud-border-primary pa-4"
+					 Dense="true"
+					 FixedHeader="true"
+					 Height="333px"
+					 Items="@_items"
+					 Outlined="true"
+					 T="Row">
+			<Columns>
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 1" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 2" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 3" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 4" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="COLUMN 5" HeaderStyle="font-weight: bold;" />
+			</Columns>
+		</MudDataGrid>
+	</MudCardContent>
+	<MudCardActions>
+		<MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+	</MudCardActions>
+</MudCard>
 
 @code {
 	public record Row(int column_1, int column_2, int column_3, int column_4, int column_5);
