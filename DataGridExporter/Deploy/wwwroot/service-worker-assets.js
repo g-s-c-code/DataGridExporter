@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "jAug92dU",
+  "version": "xeejvJyI",
   "assets": [
     {
       "hash": "sha256-PK1UCLr4L/hi9xUjKs7b91YqpRE9fihceo4lGPMbzQg=",
@@ -14,7 +14,7 @@ self.assetsManifest = {
       "url": "_content/MudBlazor/MudBlazor.min.js"
     },
     {
-      "hash": "sha256-0Vel1mvWQ7Sgav+2cCLFC7/ma2LfrctyEngvaMWLLkI=",
+      "hash": "sha256-DMK8D7M83l6tF9W9cckFQ80Yh6iUgVTDi0Z4CikAYZU=",
       "url": "_framework/DataGridExporter.wasm"
     },
     {
@@ -218,7 +218,7 @@ self.assetsManifest = {
       "url": "_framework/System.wasm"
     },
     {
-      "hash": "sha256-wwlLV0LAcq/qe9lODblnash6SFco0OdWEALLOP14vlc=",
+      "hash": "sha256-HSLOodI8GgFyw4aOPFOWx3nc2Sty3YlBLLGjUVxHaGw=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -254,7 +254,7 @@ self.assetsManifest = {
       "url": "_framework/icudt_no_CJK.dat"
     },
     {
-      "hash": "sha256-0eAUDfeL1kMI8AvZ1eR1JLQbW+ADSVSb8q3WQv5Usnc=",
+      "hash": "sha256-WwZilAXdgx4oLrtjIOQS+VYUpNI2kAlBfFACosIPUuA=",
       "url": "css/app.css"
     },
     {
