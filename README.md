@@ -24,7 +24,7 @@ This project is substantially based on the work originally developed by [timmac-
 - DocumentFormat.OpenXml
 
 ### Setup
-1. Install the required NuGet packages
+1. Install the required NuGet packages (see Dependencies)
 2. Copy the project files into your solution
 3. Ensure the JavaScript file (`saveFileAs.js`) is included and referenced in your project
 
