@@ -8,18 +8,20 @@
 		<MudText Color="Color.Primary">
 			<h1>DataGrid Exporter</h1>
 		</MudText>
-		<MudButton Class="mb-2 mb-sm-0"
+		<MudButton Class="me-5 me-sm-0 mb-2 mb-sm-0"
 				   Color="Color.Primary"
 				   EndIcon="@Icons.Custom.Brands.GitHub"
 				   Href="https://github.com/g-s-c-code/DataGridExporter"
+				   IconSize="Size.Small"
 				   Target="_blank"
 				   Ripple="true"
-				   Size="Size.Large"
+				   Size="Size.Small"
 				   Style="font-weight: bold;"
-				   Variant="Variant.Outlined">
+				   Variant="Variant.Text">
 			View on GitHub
 		</MudButton>
-		<MudButton Color="Color.Primary"
+		<MudButton Class="me-5 me-sm-0"
+			Color="Color.Primary"
 				   EndIcon="@Icons.Material.Outlined.FileDownload"
 				   OnClick="ExportToExcel"
 				   Ripple="true"
@@ -53,7 +55,7 @@
 				  Elevation="0">
 			<MudButton Color="Color.Primary"
 					   EndIcon="@Icons.Material.Outlined.ContentCopy"
-					   IconSize="Size.Large"
+					   IconSize="Size.Small"
 					   OnClick="CopyCode"
 					   Ripple="true"
 					   Style="white-space: nowrap; font-weight: bold;"
