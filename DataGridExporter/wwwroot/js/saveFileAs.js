@@ -1,11 +1,4 @@
-﻿/**
- * Save file from base64 encoded data
- * @param {string} filename - Name of the file to be saved
- * @param {string} bytesBase64 - Base64 encoded file content
- * @param {string} [mimeType='application/octet-stream'] - MIME type of the file
- * @returns {boolean} - Indicates whether the file save was initiated successfully
- */
-function saveAsFile(filename, bytesBase64, mimeType = 'application/octet-stream') {
+﻿function saveAsFile(filename, bytesBase64, mimeType = 'application/octet-stream') {
     try {
         if (!filename || !bytesBase64) {
             console.error('Filename and base64 data are required');
