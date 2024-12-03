@@ -62,7 +62,7 @@
 	private string codeContent = string.Empty;
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
-	private async Task ExportToExcel() => await _grid.ExportDataGrid(JSRuntime, "export.xlsx");
+	private async Task ExportToExcel() => await _grid.ExportMudDataGrid(JSRuntime, "export.xlsx");
 
 	private async Task CopyCode()
 	{
