@@ -5,6 +5,19 @@ html, body {
     letter-spacing: 1px;
 }
 
+.code-container {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #333;
+    display: block;
+    font-family: monospace;
+    font-size: 0.9rem;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

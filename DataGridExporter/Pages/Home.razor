@@ -36,8 +36,32 @@
 			</Columns>
 		</MudDataGrid>
 	</MudCardContent>
-	<MudCardActions>
-		<MudButton Variant="Variant.Text" Color="Color.Primary">Read More</MudButton>
+	<MudCardActions Class="d-block">
+		<MudPaper Class="d-flex justify-end flex-grow-1"
+				  Elevation="0">
+			<MudButton Class=""
+					   Color="Color.Primary"
+					   EndIcon="@Icons.Material.Outlined.FileDownload"
+					   IconSize="Size.Large"
+					   OnClick="ExportToExcel"
+					   Ripple="true"
+					   Size="Size.Large"
+					   Style="white-space: nowrap; font-weight: bold;"
+					   Variant="Variant.Text">
+				Copy Code
+			</MudButton>
+		</MudPaper>
+		<MudPaper Class="pa-16 ma-2" Elevation="4" id="code">
+			<pre>
+public class Example
+{
+	public void SampleMethod()
+	{
+		Console.WriteLine("Hello World!");
+	}
+}
+			</pre>
+		</MudPaper>
 	</MudCardActions>
 </MudCard>
 
@@ -47,6 +71,11 @@
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
 	private async Task ExportToExcel() => await _grid.ExportDataGrid(JSRuntime, "export.xlsx");
+
+	private async Task CopyCode()
+	{
+		await JSRuntime.InvokeVoidAsync("copyCode");
+	}
 
 	protected override void OnInitialized()
 	{
