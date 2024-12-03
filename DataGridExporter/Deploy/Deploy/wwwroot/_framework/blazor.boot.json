@@ -1,15 +1,15 @@
 {
   "mainAssemblyName": "DataGridExporter",
   "resources": {
-    "hash": "sha256-D6sQOZnCFT+vaEMc4I6/QyVv6Rnh4mXCcwJ9rytc8vI=",
+    "hash": "sha256-gJ4XWM5ST2bilVgPP1u/9/E2RHiTQonChqqfhmdCx0I=",
     "jsModuleNative": {
-      "dotnet.native.8.0.7.mrynulsqs8.js": "sha256-tFsxPBbhkdn6GKNBKvCRLzrfAHdyM86odYTe0MtrwMk="
+      "dotnet.native.8.0.7.nxn0s9yqq9.js": "sha256-gnxgb5xGB6Dt6sRRrYVkCy/Gi/gtl/HerAu6IbsvR+w="
     },
     "jsModuleRuntime": {
-      "dotnet.runtime.8.0.7.mkvxkxhbbh.js": "sha256-soZyw6XWXOLKhA26AOyzSpCP5cAsw1wvhdPHSYNTMfQ="
+      "dotnet.runtime.8.0.7.urcsr75yt5.js": "sha256-soZyw6XWXOLKhA26AOyzSpCP5cAsw1wvhdPHSYNTMfQ="
     },
     "wasmNative": {
-      "dotnet.native.wasm": "sha256-ApuqKsuYqEC0ZTUIUV5mIV1IIRYYCwmOiB912jgs8CQ="
+      "dotnet.native.wasm": "sha256-5Y0JzpPB/N5QhrheopwblFD4fY0rMey8Y1I1WeKMQ9w="
     },
     "icu": {
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -18,7 +18,7 @@
     },
     "coreAssembly": {},
     "assembly": {
-      "DataGridExporter.wasm": "sha256-nUv6IEhPrK8w+EKVzUXBdKUgGiS1sdKVKPlTgN4yT9k=",
+      "DataGridExporter.wasm": "sha256-3h4m5CRK/OqDFoC3DtxtuV4wCr9Ar03s3lE6ssZCvFM=",
       "DocumentFormat.OpenXml.Framework.wasm": "sha256-z5kTq3FUhO2Lh0rlzqFW/RNVQA26PhZ+buggFhy0qN0=",
       "DocumentFormat.OpenXml.wasm": "sha256-uxb8OEAQ6BJvPyAQGISQvmj0pwufjzmhrXiUhJbXvb0=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-DEI3E+mwaHIOJHjEu/uoK5NC8clfGxy1ZvEZRTO0zjI=",
