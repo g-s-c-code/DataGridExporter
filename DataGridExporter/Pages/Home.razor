@@ -15,7 +15,7 @@
 				   Ripple="true"
 				   Style="font-weight: bold;"
 				   Variant="Variant.Filled">
-			Export Button Demo
+			Export Data (Demo)
 		</MudButton>
 	</MudCardHeader>
 	<MudCardContent>
@@ -51,7 +51,7 @@
 			</MudButton>
 		</MudPaper>
 		<MudPaper Class="border-solid border-2 mud-border-primary ma-2 pa-4" Elevation="4" id="code">
-			<pre><code class="language-csharp">@codeContent</code></pre>
+			<pre>@codeContent</pre>
 		</MudPaper>
 	</MudCardActions>
 </MudCard>
@@ -76,14 +76,6 @@
 		for (var i = 0; i < 100; i++)
 		{
 			_items.Add(new Row(i, i, i, i, i));
-		}
-	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
 		}
 	}
 }
