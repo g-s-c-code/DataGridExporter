@@ -1,8 +1,10 @@
 ﻿@page "/"
 @inject IJSRuntime JSRuntime
+@inject System.Net.Http.HttpClient Http
 
-<MudCard Square="true">
-	<MudCardHeader Class="d-flex align-center justify-space-between">
+<MudCard Square="true"
+		 Style="min-height: 100vh;">
+	<MudCardHeader Class="d-flex align-center justify-space-between mb-0 pb-0">
 		<MudText Color="Color.Primary">
 			<h1>DataGrid Exporter</h1>
 		</MudText>
@@ -11,56 +13,45 @@
 				   IconSize="Size.Large"
 				   OnClick="ExportToExcel"
 				   Ripple="true"
-				   Size="Size.Large"
 				   Style="font-weight: bold;"
 				   Variant="Variant.Filled">
-			Download Table Data
+			Export Button Demo
 		</MudButton>
 	</MudCardHeader>
 	<MudCardContent>
 		<MudDataGrid @ref="_grid"
 					 Bordered=true
-					 Class="border-double border-4 mud-border-primary pa-4"
+					 Class="border-solid border-2 mud-border-primary pa-4"
 					 Dense="true"
+					 Elevation="4"
 					 FixedHeader="true"
-					 Height="333px"
+					 Height="236px"
 					 Items="@_items"
-					 Outlined="true"
 					 T="Row">
 			<Columns>
-				<PropertyColumn Property="x => x.column_1" Title="COLUMN 1" HeaderStyle="font-weight: bold;" />
-				<PropertyColumn Property="x => x.column_1" Title="COLUMN 2" HeaderStyle="font-weight: bold;" />
-				<PropertyColumn Property="x => x.column_1" Title="COLUMN 3" HeaderStyle="font-weight: bold;" />
-				<PropertyColumn Property="x => x.column_1" Title="COLUMN 4" HeaderStyle="font-weight: bold;" />
-				<PropertyColumn Property="x => x.column_1" Title="COLUMN 5" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="Demo Data" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="Demo Data" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="Demo Data" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="Demo Data" HeaderStyle="font-weight: bold;" />
+				<PropertyColumn Property="x => x.column_1" Title="Demo Data" HeaderStyle="font-weight: bold;" />
 			</Columns>
 		</MudDataGrid>
 	</MudCardContent>
 	<MudCardActions Class="d-block">
-		<MudPaper Class="d-flex justify-end flex-grow-1"
+		<MudPaper Class="d-flex justify-end flex-grow-1 ma-2"
 				  Elevation="0">
-			<MudButton Class=""
-					   Color="Color.Primary"
-					   EndIcon="@Icons.Material.Outlined.FileDownload"
+			<MudButton Color="Color.Primary"
+					   EndIcon="@Icons.Material.Outlined.ContentCopy"
 					   IconSize="Size.Large"
 					   OnClick="CopyCode"
 					   Ripple="true"
-					   Size="Size.Large"
 					   Style="white-space: nowrap; font-weight: bold;"
 					   Variant="Variant.Text">
 				Copy Code
 			</MudButton>
 		</MudPaper>
-		<MudPaper Class="ma-2 pa-4" Elevation="4" id="code">
-			<pre>
-public class Example
-{
-	public void SampleMethod()
-	{
-		Console.WriteLine("Hello World!");
-	}
-}
-			</pre>
+		<MudPaper Class="border-solid border-2 mud-border-primary ma-2 pa-4" Elevation="4" id="code">
+			<pre>@codeContent</pre>
 		</MudPaper>
 	</MudCardActions>
 </MudCard>
@@ -68,6 +59,7 @@ public class Example
 @code {
 	public record Row(int column_1, int column_2, int column_3, int column_4, int column_5);
 
+	private string codeContent = string.Empty;
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
 	private async Task ExportToExcel() => await _grid.ExportDataGrid(JSRuntime, "export.xlsx");
@@ -77,12 +69,13 @@ public class Example
 		await JSRuntime.InvokeVoidAsync("copyCode");
 	}
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
+		codeContent = await Http.GetStringAsync("DataGridExporterCode.txt");
+
 		for (var i = 0; i < 100; i++)
 		{
 			_items.Add(new Row(i, i, i, i, i));
 		}
 	}
-
 }
