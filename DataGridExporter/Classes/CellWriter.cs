@@ -9,9 +9,9 @@ public class CellWriter
 {
 	private string ColumnLetter(int colIndex)
 	{
-		int div = colIndex + 1;
-		string colLetter = string.Empty;
-		int mod = 0;
+		var div = colIndex + 1;
+		var colLetter = string.Empty;
+		var mod = 0;
 
 		while (div > 0)
 		{
@@ -66,7 +66,7 @@ public class CellWriter
 
 	public byte[] GenerateSpreadsheet<T>(List<Column<T>> columns, IEnumerable<T> items)
 	{
-		CellData cellData = new CellData();
+		var cellData = new CellData();
 		cellData.SheetName = "Items";
 		var header = new List<Cell>();
 
@@ -83,7 +83,7 @@ public class CellWriter
 		{
 			foreach (var item in items)
 			{
-				Type t = item!.GetType();
+				var t = item!.GetType();
 				List<Cell> row = new List<Cell>();
 				foreach (var column in columns)
 				{
@@ -91,8 +91,8 @@ public class CellWriter
 					{
 						if (!string.IsNullOrEmpty(column.PropertyName))
 						{
-							PropertyInfo prop = t.GetProperty(column.PropertyName)!;
-							object val = prop.GetValue(item) ?? new string("N/A");
+							var prop = t.GetProperty(column.PropertyName)!;
+							var val = prop.GetValue(item) ?? new string("N/A");
 							row.Add(new Cell(val.ToString()!));
 						}
 					}
@@ -162,7 +162,7 @@ public class CellWriter
 	{
 		UInt32 rowIdex = 0;
 		Row row;
-		MergeCells mergeCells = new MergeCells();
+		var mergeCells = new MergeCells();
 
 		// Add sheet data
 		foreach (var rowData in cellData.Cells)
