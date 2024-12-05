@@ -8,18 +8,7 @@
 		<MudText Color="Color.Primary">
 			<h1>DataGrid Exporter</h1>
 		</MudText>
-		<MudButton Class="me-5 me-sm-0 mb-2 mb-sm-0"
-				   Color="Color.Primary"
-				   EndIcon="@Icons.Custom.Brands.GitHub"
-				   Href="https://github.com/g-s-c-code/DataGridExporter"
-				   IconSize="Size.Small"
-				   Target="_blank"
-				   Ripple="true"
-				   Size="Size.Small"
-				   Style="font-weight: bold;"
-				   Variant="Variant.Text">
-			View on GitHub
-		</MudButton>
+
 		<MudMenu StartIcon="@Icons.Material.Outlined.FileDownload"
 				 EndIcon="@Icons.Material.Filled.KeyboardArrowDown"
 				 Label="Export Demo Data"
@@ -50,7 +39,7 @@
 					 Bordered=true
 					 Class="border-solid border-2 mud-border-primary pa-4"
 					 Dense="true"
-					 Elevation="4"
+					 Elevation="0"
 					 FixedHeader="true"
 					 Height="236px"
 					 Items="@_items"
@@ -65,11 +54,19 @@
 		</MudDataGrid>
 	</MudCardContent>
 	<MudCardActions Class="d-block">
-		<MudPaper Class="d-flex justify-end flex-grow-1 ma-2"
+		<MudPaper Class="d-flex justify-space-between ma-2"
 				  Elevation="0">
 			<MudButton Color="Color.Primary"
-					   EndIcon="@Icons.Material.Outlined.ContentCopy"
-					   IconSize="Size.Small"
+					   StartIcon="@Icons.Custom.Brands.GitHub"
+					   Href="https://github.com/g-s-c-code/DataGridExporter"
+					   Target="_blank"
+					   Ripple="true"
+					   Style="font-weight: bold;"
+					   Variant="Variant.Text">
+				View on GitHub
+			</MudButton>
+			<MudButton Color="Color.Primary"
+					   StartIcon="@Icons.Material.Outlined.ContentCopy"
 					   OnClick="CopyCode"
 					   Ripple="true"
 					   Style="white-space: nowrap; font-weight: bold;"

@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "DataGridExporter",
   "resources": {
-    "hash": "sha256-W2WDkvGd0aJhnasDhqIDPwoyVNch8uBDqzJ/VeZXGaA=",
+    "hash": "sha256-kW4VYAcxnSnEU55cHCsTp7urZZ8XJrzfQ9uCNrFOQaI=",
     "jsModuleNative": {
       "dotnet.native.8.0.7.mrynulsqs8.js": "sha256-tFsxPBbhkdn6GKNBKvCRLzrfAHdyM86odYTe0MtrwMk="
     },
@@ -18,7 +18,7 @@
     },
     "coreAssembly": {},
     "assembly": {
-      "DataGridExporter.wasm": "sha256-VzljIAGfln8n7lW9LoDwnX5FHmaLlbOqyopO3dFXV0s=",
+      "DataGridExporter.wasm": "sha256-QjovD4mjNu1sitxfF/ob/Vl1ufNof1q+Qi7CA5DkXBw=",
       "DocumentFormat.OpenXml.Framework.wasm": "sha256-z5kTq3FUhO2Lh0rlzqFW/RNVQA26PhZ+buggFhy0qN0=",
       "DocumentFormat.OpenXml.wasm": "sha256-uxb8OEAQ6BJvPyAQGISQvmj0pwufjzmhrXiUhJbXvb0=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-DEI3E+mwaHIOJHjEu/uoK5NC8clfGxy1ZvEZRTO0zjI=",
