@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "DataGridExporter",
   "resources": {
-    "hash": "sha256-4Hm7HVGxs1Xta0puUCYFALpWvQjyIYan3evNzMzPO2A=",
+    "hash": "sha256-W2WDkvGd0aJhnasDhqIDPwoyVNch8uBDqzJ/VeZXGaA=",
     "jsModuleNative": {
       "dotnet.native.8.0.7.mrynulsqs8.js": "sha256-tFsxPBbhkdn6GKNBKvCRLzrfAHdyM86odYTe0MtrwMk="
     },
@@ -18,7 +18,7 @@
     },
     "coreAssembly": {},
     "assembly": {
-      "DataGridExporter.wasm": "sha256-k+YMh2W1ZQA37VDQMn2XUfRO9RQGOLHKQKyktDnKDbI=",
+      "DataGridExporter.wasm": "sha256-VzljIAGfln8n7lW9LoDwnX5FHmaLlbOqyopO3dFXV0s=",
       "DocumentFormat.OpenXml.Framework.wasm": "sha256-z5kTq3FUhO2Lh0rlzqFW/RNVQA26PhZ+buggFhy0qN0=",
       "DocumentFormat.OpenXml.wasm": "sha256-uxb8OEAQ6BJvPyAQGISQvmj0pwufjzmhrXiUhJbXvb0=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-DEI3E+mwaHIOJHjEu/uoK5NC8clfGxy1ZvEZRTO0zjI=",
@@ -63,7 +63,7 @@
       "System.Private.Xml.wasm": "sha256-4kdkj8mAMo81gizlHxKLJmuJDD8nU6CchMT1gHLxQvQ=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-g/W5pNaSSqr8a/KEsfITIXn/204KeEJR8hg7y13eWxw=",
       "System.Runtime.Numerics.wasm": "sha256-VBfhOnA48x7J2HcHor7Caonp8pWxy+0mqOfrX6WDbwY=",
-      "System.Runtime.wasm": "sha256-nVr0iJdFmgwmWRg9P5Q00uMI7G5jA0ntzZIs021AoeQ=",
+      "System.Runtime.wasm": "sha256-/cUntJ4c0vdacr5/AmF/XwZFKFcvEC64v4OV9oc0fu4=",
       "System.Text.Encodings.Web.wasm": "sha256-R+OvK9eqZrgCCapRi6R7td3WKKd7paEAJ5yzYf5uhX0=",
       "System.Text.Json.wasm": "sha256-rdLa6Xl62vi50fHDZ8kouKaN3AvFIJma6vCGMhOZ3+w=",
       "System.Text.RegularExpressions.wasm": "sha256-9iVpH+SpDlKBxtSSghmrmFyxdnIsqvGDhmCQau+CrCc=",

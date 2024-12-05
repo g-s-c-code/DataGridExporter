@@ -1,8 +1,8 @@
 self.assetsManifest = {
-  "version": "bz8q7EhY",
+  "version": "iMq+y6Qc",
   "assets": [
     {
-      "hash": "sha256-PK1UCLr4L/hi9xUjKs7b91YqpRE9fihceo4lGPMbzQg=",
+      "hash": "sha256-+zs7AYbzulrUWyvKQ068dryekH0PLqbBho2LySmD5b0=",
       "url": "DataGridExporterCode.txt"
     },
     {
@@ -14,7 +14,7 @@ self.assetsManifest = {
       "url": "_content/MudBlazor/MudBlazor.min.js"
     },
     {
-      "hash": "sha256-k+YMh2W1ZQA37VDQMn2XUfRO9RQGOLHKQKyktDnKDbI=",
+      "hash": "sha256-VzljIAGfln8n7lW9LoDwnX5FHmaLlbOqyopO3dFXV0s=",
       "url": "_framework/DataGridExporter.wasm"
     },
     {
@@ -194,7 +194,7 @@ self.assetsManifest = {
       "url": "_framework/System.Runtime.Numerics.wasm"
     },
     {
-      "hash": "sha256-nVr0iJdFmgwmWRg9P5Q00uMI7G5jA0ntzZIs021AoeQ=",
+      "hash": "sha256-/cUntJ4c0vdacr5/AmF/XwZFKFcvEC64v4OV9oc0fu4=",
       "url": "_framework/System.Runtime.wasm"
     },
     {
@@ -218,7 +218,7 @@ self.assetsManifest = {
       "url": "_framework/System.wasm"
     },
     {
-      "hash": "sha256-zcHD+GfWhThh0s1HuFSbmrlVpgCBMXLGahV2vFjgn0s=",
+      "hash": "sha256-V3Ku1Dw+Nd1Hb9/Wl5Bae9ExZxA0WSxYI7u2nFnxYBM=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -274,7 +274,7 @@ self.assetsManifest = {
       "url": "js/copyCode.js"
     },
     {
-      "hash": "sha256-5vU42u/6rOVDc7IhXAYLn0JgEOAeKdDU59+c+kAkjvc=",
+      "hash": "sha256-bHw6gUA1QffNoQzpOyUiwaKwG8XJOiZxGX1mhAkH7V0=",
       "url": "js/saveFileAs.js"
     },
     {

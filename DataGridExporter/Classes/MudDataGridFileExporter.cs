@@ -4,38 +4,30 @@ using MudBlazor;
 
 public static class MudDataGridFileExporter
 {
-	public static async Task ExportMudDataGrid<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename, string format)
+	public static async Task ExportToExcel<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
 	{
-		byte[] content;
-		switch (format.ToLower())
-		{
-			case "xlsx":
-				var excelWriter = new CellWriter();
-				content = excelWriter.GenerateSpreadsheet(grid.RenderedColumns, grid.FilteredItems);
-				break;
-			case "csv":
-				content = GenerateCsv(grid.RenderedColumns, grid.FilteredItems);
-				break;
-			case "json":
-				content = GenerateJson(grid.FilteredItems);
-				break;
-			default:
-				throw new ArgumentException("Unsupported format");
-		}
+		var excelWriter = new CellWriter();
+		byte[] content = excelWriter.GenerateSpreadsheet(grid.RenderedColumns, grid.FilteredItems);
 
-		var mimeType = format.ToLower() switch
-		{
-			"xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-			"csv" => "text/csv",
-			"json" => "application/json",
-			_ => "application/octet-stream"
-		};
-
-		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content), mimeType);
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content),
+								  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 	}
 
+	public static async Task ExportToCsv<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	{
+		byte[] content = GenerateCsv(grid.RenderedColumns, grid.FilteredItems);
 
-	public static byte[] GenerateCsv<T>(List<Column<T>> columns, IEnumerable<T> items)
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content), "text/csv");
+	}
+
+	public static async Task ExportToJson<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	{
+		byte[] content = GenerateJson(grid.FilteredItems);
+
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content), "application/json");
+	}
+
+	private static byte[] GenerateCsv<T>(List<Column<T>> columns, IEnumerable<T> items)
 	{
 		var csvBuilder = new StringBuilder();
 		// Add headers
@@ -46,7 +38,8 @@ public static class MudDataGridFileExporter
 		foreach (var item in items)
 		{
 			var row = string.Join(",", columns.Where(c => !c.Hidden)
-				.Select(c => {
+				.Select(c =>
+				{
 					var prop = item.GetType().GetProperty(c.PropertyName!);
 					return prop?.GetValue(item)?.ToString()?.Replace(",", " ") ?? string.Empty;
 				}));
@@ -56,10 +49,9 @@ public static class MudDataGridFileExporter
 		return Encoding.UTF8.GetBytes(csvBuilder.ToString());
 	}
 
-	public static byte[] GenerateJson<T>(IEnumerable<T> items)
+	private static byte[] GenerateJson<T>(IEnumerable<T> items)
 	{
 		var json = System.Text.Json.JsonSerializer.Serialize(items);
 		return Encoding.UTF8.GetBytes(json);
 	}
-
 }

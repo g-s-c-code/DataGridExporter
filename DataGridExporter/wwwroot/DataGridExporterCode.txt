@@ -8,7 +8,6 @@ public class Cell(string content)
 	public int RowSpan { get; set; } = 1;
 }
 
-
 //CellData.cs
 public class CellData(bool extendedSheet)
 {
@@ -209,53 +208,78 @@ public class CellWriter
 
 
 //MudDataGridFileExporter.cs
+using System.Text;
 using Microsoft.JSInterop;
 using MudBlazor;
 
 public static class MudDataGridFileExporter
 {
-	public static async Task ExportMudDataGrid<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	public static async Task ExportToExcel<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
 	{
-		CellWriter spreadsheetlWriter = new CellWriter();
-		byte[] content = spreadsheetlWriter.GenerateSpreadsheet(grid.RenderedColumns, grid.FilteredItems);
+		var excelWriter = new CellWriter();
+		byte[] content = excelWriter.GenerateSpreadsheet(grid.RenderedColumns, grid.FilteredItems);
 
-		await JSRuntimeExtensions.InvokeAsync<object>(js, "saveAsFile", new object[2]
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content),
+								  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	}
+
+	public static async Task ExportToCsv<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	{
+		byte[] content = GenerateCsv(grid.RenderedColumns, grid.FilteredItems);
+
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content), "text/csv");
+	}
+
+	public static async Task ExportToJson<T>(this MudDataGrid<T> grid, IJSRuntime js, string filename)
+	{
+		byte[] content = GenerateJson(grid.FilteredItems);
+
+		await js.InvokeVoidAsync("saveAsFile", filename, Convert.ToBase64String(content), "application/json");
+	}
+
+	private static byte[] GenerateCsv<T>(List<Column<T>> columns, IEnumerable<T> items)
+	{
+		var csvBuilder = new StringBuilder();
+		// Add headers
+		var header = string.Join(",", columns.Where(c => !c.Hidden).Select(c => c.Title));
+		csvBuilder.AppendLine(header);
+
+		// Add rows
+		foreach (var item in items)
 		{
-					filename, Convert.ToBase64String(content)
-		});
+			var row = string.Join(",", columns.Where(c => !c.Hidden)
+				.Select(c =>
+				{
+					var prop = item.GetType().GetProperty(c.PropertyName!);
+					return prop?.GetValue(item)?.ToString()?.Replace(",", " ") ?? string.Empty;
+				}));
+			csvBuilder.AppendLine(row);
+		}
+
+		return Encoding.UTF8.GetBytes(csvBuilder.ToString());
+	}
+
+	private static byte[] GenerateJson<T>(IEnumerable<T> items)
+	{
+		var json = System.Text.Json.JsonSerializer.Serialize(items);
+		return Encoding.UTF8.GetBytes(json);
 	}
 }
 
+//saveAsFile.js
+function saveAsFile(filename, bytesBase64, mimeType) {
+    const byteCharacters = atob(bytesBase64);
+    const byteNumbers = new Array(byteCharacters.length).fill().map((_, i) => byteCharacters.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: mimeType });
 
-//saveFileAs.js
-function saveAsFile(filename, bytesBase64, mimeType = 'application/octet-stream') {
-    try {
-        if (!filename || !bytesBase64) {
-            console.error('Filename and base64 data are required');
-            return false;
-        }
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
 
-        const byteCharacters = atob(bytesBase64);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: mimeType });
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        URL.revokeObjectURL(link.href);
-
-        return true;
-    } catch (error) {
-        console.error('Error saving file:', error);
-        return false;
-    }
+    URL.revokeObjectURL(link.href);
 }

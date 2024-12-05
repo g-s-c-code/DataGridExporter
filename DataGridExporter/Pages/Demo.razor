@@ -3,7 +3,7 @@
 @inject System.Net.Http.HttpClient Http
 
 <MudCard Square="true"
-		 Style="min-height: 100vh;">
+		 Style="min-height: 100svh;">
 	<MudCardHeader Class="d-block d-sm-flex align-center justify-space-between mb-0 pb-0">
 		<MudText Color="Color.Primary">
 			<h1>DataGrid Exporter</h1>
@@ -20,12 +20,30 @@
 				   Variant="Variant.Text">
 			View on GitHub
 		</MudButton>
-		<MudMenu Icon="@Icons.Material.Outlined.FileDownload" Label="Export Data" Variant="Variant.Filled">
-			<MudMenuItem OnClick="ExportToExcel">Export to Excel (.xlsx)</MudMenuItem>
-			<MudMenuItem OnClick="ExportToCsv">Export to CSV (.csv)</MudMenuItem>
-			<MudMenuItem OnClick="ExportToJson">Export to JSON (.json)</MudMenuItem>
+		<MudMenu StartIcon="@Icons.Material.Outlined.FileDownload"
+				 EndIcon="@Icons.Material.Filled.KeyboardArrowDown"
+				 Label="Export Demo Data"
+				 Color="Color.Primary"
+				 Variant="Variant.Filled">
+			<MudMenuItem Icon="@Icons.Material.Rounded.TableChart"
+						 IconColor="Color.Primary"
+						 IconSize="Size.Small"
+						 OnClick="ExportToExcel">
+				Export to Excel (.xlsx)
+			</MudMenuItem>
+			<MudMenuItem Icon="@Icons.Material.TwoTone.TableChart"
+						 IconColor="Color.Primary"
+						 IconSize="Size.Small"
+						 OnClick="ExportToCsv">
+				Export to CSV (.csv)
+			</MudMenuItem>
+			<MudMenuItem Icon="@Icons.Material.Rounded.ListAlt"
+						 IconColor="Color.Primary"
+						 IconSize="Size.Small"
+						 OnClick="ExportToJson">
+				Export to JSON (.json)
+			</MudMenuItem>
 		</MudMenu>
-
 	</MudCardHeader>
 	<MudCardContent>
 		<MudDataGrid @ref="_grid"
@@ -71,20 +89,10 @@
 	private string codeContent = string.Empty;
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
-
-	private async Task ExportToExcel() =>
-		await _grid.ExportMudDataGrid(JSRuntime, "export.xlsx", "xlsx");
-
-	private async Task ExportToCsv() =>
-		await _grid.ExportMudDataGrid(JSRuntime, "export.csv", "csv");
-
-	private async Task ExportToJson() =>
-		await _grid.ExportMudDataGrid(JSRuntime, "export.json", "json");
-
-	private async Task CopyCode()
-	{
-		await JSRuntime.InvokeVoidAsync("copyCode");
-	}
+	private async Task ExportToExcel() => await _grid.ExportToExcel(JSRuntime, "export.xlsx");
+	private async Task ExportToCsv() => await _grid.ExportToCsv(JSRuntime, "export.csv");
+	private async Task ExportToJson() => await _grid.ExportToJson(JSRuntime, "export.json");
+	private async Task CopyCode() => await JSRuntime.InvokeVoidAsync("copyCode");
 
 	protected override async Task OnInitializedAsync()
 	{
