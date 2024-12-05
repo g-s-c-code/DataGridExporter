@@ -20,16 +20,12 @@
 				   Variant="Variant.Text">
 			View on GitHub
 		</MudButton>
-		<MudButton Class="me-5 me-sm-0"
-			Color="Color.Primary"
-				   EndIcon="@Icons.Material.Outlined.FileDownload"
-				   OnClick="ExportToExcel"
-				   Ripple="true"
-				   Size="Size.Large"
-				   Style="font-weight: bold;"
-				   Variant="Variant.Filled">
-			Export Data (Demo)
-		</MudButton>
+		<MudMenu Icon="@Icons.Material.Outlined.FileDownload" Label="Export Data" Variant="Variant.Filled">
+			<MudMenuItem OnClick="ExportToExcel">Export to Excel (.xlsx)</MudMenuItem>
+			<MudMenuItem OnClick="ExportToCsv">Export to CSV (.csv)</MudMenuItem>
+			<MudMenuItem OnClick="ExportToJson">Export to JSON (.json)</MudMenuItem>
+		</MudMenu>
+
 	</MudCardHeader>
 	<MudCardContent>
 		<MudDataGrid @ref="_grid"
@@ -75,7 +71,15 @@
 	private string codeContent = string.Empty;
 	private MudDataGrid<Row> _grid = default!;
 	private List<Row> _items = new List<Row>();
-	private async Task ExportToExcel() => await _grid.ExportMudDataGrid(JSRuntime, "export.xlsx");
+
+	private async Task ExportToExcel() =>
+		await _grid.ExportMudDataGrid(JSRuntime, "export.xlsx", "xlsx");
+
+	private async Task ExportToCsv() =>
+		await _grid.ExportMudDataGrid(JSRuntime, "export.csv", "csv");
+
+	private async Task ExportToJson() =>
+		await _grid.ExportMudDataGrid(JSRuntime, "export.json", "json");
 
 	private async Task CopyCode()
 	{
