@@ -6,7 +6,7 @@ This library provides export functionality for MudBlazor DataGrid components in 
 
 ## Acknowledgments
 
-This project is substantially based on the work originally developed by [timmac-qmc](https://github.com/timmac-qmc). Credit is given to the original author for the foundational implementation.
+This project is based on the work originally developed by [timmac-qmc](https://github.com/timmac-qmc).
 
 ## Features
 
